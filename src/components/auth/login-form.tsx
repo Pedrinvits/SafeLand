@@ -43,8 +43,8 @@ export const LoginForm = () => {
        startTransition(()=>{
             Login(values)
             .then((data) => {
-                SetError(data.error);
-                SetSucess(data.sucess)
+                SetError(data?.error);
+                SetSucess(data?.sucess)
             })
        })
 

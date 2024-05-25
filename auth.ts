@@ -39,9 +39,10 @@ export const {
                if(!user){
                     return null;
                }
-            //    const matches = compareSync(password, user.password)
-               const matches = true;
-               if(user){
+            
+                const matches = compareSync(password, user.password ?? "")
+              
+               if(matches){
                     return {id:user.id, email : user.email, name:user.name}
                }
                 return null;

@@ -2,7 +2,7 @@
 import * as z from 'zod'
 
 import { db } from '@/lib/db';
-import bcrypt from "bcrypt-ts";
+import * as bcrypt from "bcrypt-ts";
 import { RegisterSchema } from '../../schemas';
 import { getUserByEmail } from '../../data/user';
 
@@ -17,8 +17,8 @@ export const Register = async (values : z.infer<typeof RegisterSchema> ) => {
     }
     const {email, password, name} = validatedFields.data
 
-    // const hashPassword = await bcrypt.hash(password,10)
-    const hashPassword = password
+    const hashPassword = await bcrypt.hash(password,10)
+    
 
     const existingUser = await getUserByEmail(email);
 
