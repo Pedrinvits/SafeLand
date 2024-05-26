@@ -72,7 +72,7 @@ export const RegisterForm = () => {
                             name='name'
                             render={({field}) => (
                                 <FormItem>
-                                      <FormLabel>Name</FormLabel>
+                                      <FormLabel>Nome</FormLabel>
                                       <FormControl>
                                         <Input {...field} placeholder='Seu nome' type='name'/>
                                       </FormControl>

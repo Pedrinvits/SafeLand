@@ -9,9 +9,9 @@ export const Social = () => {
             <Button size='lg' className='w-full' variant='outline' onClick={()=>{}}>
                 <FcGoogle className='h-5 w-5'/>
             </Button>
-            <Button size='lg' className='w-full' variant='outline' onClick={()=>{}}>
+            {/* <Button size='lg' className='w-full' variant='outline' onClick={()=>{}}>
                 <FaGithub className='h-5 w-5'/>
-            </Button>
+            </Button> */}
         </div>
     )
 }
