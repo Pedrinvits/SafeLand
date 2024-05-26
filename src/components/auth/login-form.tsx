@@ -3,6 +3,8 @@
 import * as  z from 'zod'
 import { CardWrapper } from "./cardWrapper"
 import { useForm } from "react-hook-form"
+import { Eye } from 'lucide-react';
+import { EyeOff } from 'lucide-react';
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -20,12 +22,14 @@ import { FormSucess } from '../form-sucess'
 import { Login } from '@/action/login'
 import { useState, useTransition } from 'react'
 import { LoginSchema } from '../../../schemas'
+import { Loader2 } from "lucide-react";
 
 export const LoginForm = () => {
     
     const [isPending,startTransition] = useTransition()
     const [error,SetError] = useState<string | undefined>("")
     const [sucess,SetSucess] = useState<string | undefined>("")
+    const [seePassword,SetseePassword] = useState<boolean>(false)
 
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver : zodResolver(LoginSchema),
@@ -82,9 +86,16 @@ export const LoginForm = () => {
                         render={({field}) => (
                             <FormItem>
                                     <FormLabel>Senha</FormLabel>
-                                    <FormControl>
-                                    <Input {...field} placeholder='********' type='password'/>
-                                    </FormControl>
+                                        <div className='flex relative'>
+                                            <FormControl>
+                                            <Input {...field} placeholder='********' type={seePassword ? 'text' : 'password'}/>
+                                            </FormControl>
+                                            <FormControl>
+                                            <Button className="absolute bottom-1 right-1 h-7 w-7" size="icon" variant="ghost" type="button" onClick={()=>SetseePassword(!seePassword)}>
+                                                {seePassword ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                                            </Button>
+                                            </FormControl>
+                                            </div>
                                     <FormMessage/>
                             </FormItem>
                         )}
@@ -96,7 +107,7 @@ export const LoginForm = () => {
                     type='submit'
                     className='w-full'
                     disabled={isPending}
-                    >Login</Button>
+                    >{isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Login'}</Button>
                 </form>
            </Form>
 
