@@ -1,14 +1,17 @@
 import Image from "next/image";
-import { auth } from "../../auth";
+import { auth, signOut } from "../../auth";
 import { redirect } from "next/navigation";
+import Navbar from "@/components/navbar";
 
 export default  async function Home() {
   const session =  await auth()
 
-    if (!session) {
-        redirect('/auth/login')
-    }
   return (
-    <h1>Bem Vindo de Volta, {session.user?.name}!</h1>
+    <>
+      <div>
+        <pre>{JSON.stringify(session?.user,null,1)}</pre>
+        
+      </div>
+    </>
   );
 }
