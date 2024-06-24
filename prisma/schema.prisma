@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,14 +7,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 model User {
-  id            String    @id @default(cuid())
+  id            Int    @id @default(autoincrement())
   name          String?
   email         String?   @unique
   password      String?
-  //emailVerified DateTime? @map("email_verified")
-  //image         String?
-  //accounts      Account[]
-  //sessions      Session[]
- 
+  posts Post[]
   @@map("users")
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  author User @relation(fields: [authorId],references: [id])
+  authorId Int
+  coments Coment[]
+  @@map("posts")
+}
+
+model Coment {
+  id Int @id @default(autoincrement())
+  coment String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  post Post @relation(fields: [post_id],references: [id])
+  post_id Int
+  @@map("comments")
 }

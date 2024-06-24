@@ -11,8 +11,8 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: "Facilite",
-  description: "Seu ERP de controle de estoque",
+  title: "Codehub",
+  description: "Seu hub de noticias",
 };
 
 export default function RootLayout({
