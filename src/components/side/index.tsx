@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { LogOutIcon, SettingsIcon, UserRound } from "lucide-react"
 import { ModeToggle } from "../mode-toggle"
+import AccountSettings from "../accountSettings"
 
 export default function Component() {
   return (
@@ -48,10 +49,9 @@ export default function Component() {
                 <LogOutIcon className="h-5 w-5 mr-2" />
                 Logout
             </Button>
-            <Button variant="outline" className="w-full">
-                <SettingsIcon className="h-5 w-5 mr-2" />
-                 Settings
-            </Button>
+                <div className="w-full flex ">
+                <AccountSettings/>
+                </div>
             </div>
         </div>
       </div>
@@ -100,10 +100,7 @@ export default function Component() {
                     <LogOutIcon className="h-5 w-5 mr-2" />
                     Logout
                 </Button>
-                <Button variant="outline" className="w-full">
-                    <SettingsIcon className="h-5 w-5 mr-2" />
-                     Settings
-                </Button>
+                <AccountSettings/>
                 </div>
             </SheetContent>
           </Sheet>
@@ -111,7 +108,7 @@ export default function Component() {
         <main className="p-4 md:p-6">
           <h1 className="text-2xl font-bold">Welcome to Codehub</h1>
           <p className="mt-2 text-muted-foreground">Explore our news</p>
-          
+
         </main>
       </div>
     </div>
