@@ -6,11 +6,18 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { SettingsIcon } from "lucide-react"
+import { Eye, EyeOff, SettingsIcon } from "lucide-react"
 import { useState } from "react"
+import { getUserByEmail } from "../../../data/user"
+import { useSession } from "next-auth/react";
 
-export default function AccountSettings() {
+export default function AccountSettings({name,email} : string) {
   const [selectedOption, setSelectedOption] = useState("profile")
+  const [seePassword,SetseePassword] = useState<boolean>(false)
+  // buscar infos do usuario para preencher o modal e fazer o crud
+  console.log(name);
+  console.log(email);
+  
   return (
     <>
       <Dialog>
@@ -38,13 +45,6 @@ export default function AccountSettings() {
               Password
             </Button>
             <Button
-              variant={selectedOption === "photo" ? "secondary" : "ghost"}
-              onClick={() => setSelectedOption("photo")}
-              className="w-full justify-start"
-            >
-              Photo
-            </Button>
-            <Button
               variant={selectedOption === "delete" ? "secondary" : "ghost"}
               onClick={() => setSelectedOption("delete")}
               className="w-full justify-start"
@@ -62,19 +62,11 @@ export default function AccountSettings() {
                   <div className="grid gap-4">
                     <div className="grid grid-cols-[120px_1fr] items-center gap-4">
                       <Label htmlFor="name">Name</Label>
-                      <Input id="name" defaultValue="John Doe" />
+                      <Input id="name" defaultValue={name} />
                     </div>
                     <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                      <Label htmlFor="username">Username</Label>
-                      <Input id="username" defaultValue="johndoe" />
-                    </div>
-                    <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                      <Label htmlFor="bio">Bio</Label>
-                      <Textarea
-                        id="bio"
-                        defaultValue="I'm a software engineer and I love to code!"
-                        className="min-h-[100px]"
-                      />
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" defaultValue={email} />
                     </div>
                     <Button className="w-full">Save</Button>
                     </div>
@@ -89,32 +81,18 @@ export default function AccountSettings() {
                     <div className="grid gap-4">
                       <div className="grid grid-cols-[120px_1fr] items-center gap-4">
                         <Label htmlFor="current-password">Current Password</Label>
-                        <Input id="current-password" type="password" placeholder="Enter your current password" />
+                        <Input id="current-password" type={seePassword ? 'text' : 'password'} placeholder="Enter your current password" />
+                        <Button className="absolute bottom-1 right-1 h-7 w-7" size="icon" variant="ghost" type="button" onClick={()=>SetseePassword(!seePassword)}>
+                            {seePassword ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                        </Button>
                       </div>
                       <div className="grid grid-cols-[120px_1fr] items-center gap-4">
                         <Label htmlFor="new-password">New Password</Label>
-                        <Input id="new-password" type="password" placeholder="Enter your new password" />
+                        <Input id="new-password" type={seePassword ? 'text' : 'password'} placeholder="Enter your new password" />
                       </div>
                       <div className="grid grid-cols-[120px_1fr] items-center gap-4">
                         <Label htmlFor="confirm-password">Confirm Password</Label>
-                        <Input id="confirm-password" type="password" placeholder="Confirm your new password" />
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {selectedOption === "photo" && (
-                  <div id="photo" className="space-y-6">
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-semibold">Profile Photo</h3>
-                      <p className="text-muted-foreground">Update your profile photo.</p>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className=" flex items-center gap-2">
-                          <Avatar className="h-16 w-16">
-                            <AvatarImage src="/placeholder-user.jpg" />
-                            <AvatarFallback>JP</AvatarFallback>
-                          </Avatar>
-                          <Input type="file" className="w-full" accept="image/*"/>
+                        <Input id="confirm-password" type={seePassword ? 'text' : 'password'} placeholder="Confirm your new password" />
                       </div>
                     </div>
                   </div>

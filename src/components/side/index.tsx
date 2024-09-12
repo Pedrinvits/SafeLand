@@ -1,8 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/GBoqQrtBx82
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import Link from "next/link"
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
@@ -10,6 +5,12 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { LogOutIcon, SettingsIcon, UserRound } from "lucide-react"
 import { ModeToggle } from "../mode-toggle"
 import AccountSettings from "../accountSettings"
+import { auth } from "../../../auth"
+import { getUserByEmail } from "../../../data/user"
+import CreditEligibilityChecker from "../CreditEligibilityChecker"
+
+const session = await auth();
+const user = await  getUserByEmail(session?.user?.email)
 
 export default function Component() {
   return (
@@ -26,7 +27,7 @@ export default function Component() {
               <HomeIcon className="h-4 w-4" />
               Home
             </Link>
-            <Link
+            {/* <Link
               href="#"
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               prefetch={false}
@@ -34,15 +35,15 @@ export default function Component() {
             <UserRound className="h-4 w-4"/>
              
               Profile
-            </Link> 
-            <Link
+            </Link>  */}
+            {/* <Link
               href="#"
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               prefetch={false}
             >
               <UsersIcon className="h-4 w-4" />
               Contact
-            </Link>
+            </Link> */}
           </nav>
           <div className="mt-auto space-y-2 border-t pt-4">
             <Button variant="outline" className="w-full">
@@ -50,7 +51,7 @@ export default function Component() {
                 Logout
             </Button>
                 <div className="w-full flex ">
-                <AccountSettings/>
+                <AccountSettings email={user?.email} name={user?.name} password={user?.password}/>
                 </div>
             </div>
         </div>
@@ -86,29 +87,29 @@ export default function Component() {
                   <FileIcon className="h-4 w-4" />
                   About
                 </Link> 
-                <Link
+                {/* <Link
                   href="#"
                   className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                   prefetch={false}
                 >
                   <UsersIcon className="h-4 w-4" />
                   Contact
-                </Link>
+                </Link> */}
               </nav>
               <div className="mt-auto space-y-2 border-t pt-4">
                 <Button variant="outline" className="w-full">
                     <LogOutIcon className="h-5 w-5 mr-2" />
                     Logout
                 </Button>
-                <AccountSettings/>
+                <AccountSettings email={user?.email} name={user?.name} password={user?.password}/>
                 </div>
             </SheetContent>
           </Sheet>
         </header>
         <main className="p-4 md:p-6">
-          <h1 className="text-2xl font-bold">Welcome to Codehub</h1>
-          <p className="mt-2 text-muted-foreground">Explore our news</p>
-
+          {/* <h1 className="text-2xl font-bold">Welcome to SafeLend </h1>
+          <p className="mt-2 text-muted-foreground">Explore our news</p> */}
+          <CreditEligibilityChecker/>
         </main>
       </div>
     </div>
