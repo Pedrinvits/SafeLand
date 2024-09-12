@@ -14,10 +14,17 @@ export const updateUserEmail = async (
     // Obtenção do usuário pelo e-mail
     const user = await getUserById(parseInt(authorId));
 
+    const existingUser = await getUserByEmail(email);
+
     if (!user) {
       throw new Error('Usuário não encontrado.');
     }
-
+    
+    if(existingUser) {
+      return {
+          error : "Esse email já está sendo usado!"
+      };
+  }
     // Atualizando as informações do usuário no banco de dados
     const updateUserEmail = await db.user.update({
       where: { id: user.id }, // Atualiza o usuário baseado no ID

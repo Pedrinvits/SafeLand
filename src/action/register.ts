@@ -24,7 +24,7 @@ export const Register = async (values : z.infer<typeof RegisterSchema> ) => {
 
     if(existingUser) {
         return {
-            error : "Email already in use!"
+            error : "Esse email já está sendo usado!"
         };
     }
     await db.user.create({
@@ -36,5 +36,5 @@ export const Register = async (values : z.infer<typeof RegisterSchema> ) => {
     })
     // mandar mensagem de verificacao
 
-    return { sucess : "User Created!"};
+    return { sucess : "Usuário criado com sucesso!"};
 }
