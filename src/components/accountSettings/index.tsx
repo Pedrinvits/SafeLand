@@ -15,7 +15,7 @@ import { updateUserEmail } from "../../../data/updateUserEmail"
 import { deleteUser } from "../../../data/deleteUser"
 import { redirect } from 'next/navigation'
 import { updateUserPassword } from "../../../data/updateUserPassword"
-
+import { toast, useToast } from "@/hooks/use-toast"
 interface StatePassword  {
   currentpassword : string;
   newpassword : string;
@@ -23,6 +23,7 @@ interface StatePassword  {
 }
 
 export default function AccountSettings({name,email} : any) {
+  const { toast } = useToast()
   const [selectedOption, setSelectedOption] = useState("profile")
   const [seePassword,SetseePassword] = useState<boolean>(false)
   const [userData, setUserData] = useState({ name, email });
@@ -40,7 +41,9 @@ export default function AccountSettings({name,email} : any) {
         }
         else{
          const result =  await updateUserName(userData.name)
-         
+         toast({
+          title: "Nome alterado com sucesso!",
+          })
          
         }
       }
@@ -50,6 +53,9 @@ export default function AccountSettings({name,email} : any) {
         return
       }else{
         const result = await updateUserEmail(userData.email)
+        toast({
+          title: "Email alterado com sucesso!",
+          })
       }
      }
       
@@ -64,7 +70,9 @@ export default function AccountSettings({name,email} : any) {
             console.log('Senhas digitadas sao incorretas');
           }
           const result = await updateUserPassword(passwordData.currentpassword, passwordData?.newpassword)
-          console.log(result);
+          toast({
+            title: "Senha alterada com sucesso!",
+            })
     }
     catch(err){
       console.log(err);
@@ -77,7 +85,9 @@ export default function AccountSettings({name,email} : any) {
         
      }else{
         const result = await deleteUser()
-          console.log(result);
+          toast({
+            title: "Conta excluída com sucesso!",
+          })
           redirect('/auth/register')
      }
     }
