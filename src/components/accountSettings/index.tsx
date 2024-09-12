@@ -89,11 +89,11 @@ export default function AccountSettings({name,email} : any) {
     <>
       <Dialog>
       <DialogTrigger asChild className="w-full gap-2">
-        <Button variant="outline"><SettingsIcon className="h-5 w-5" />Settings</Button>
+        <Button variant="outline"><SettingsIcon className="h-5 w-5" />Configurações</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[800px] max-w-[22rem] ">
         <DialogHeader>
-          <DialogTitle>Settings</DialogTitle>
+          <DialogTitle>Configurações</DialogTitle>
         </DialogHeader>
         <div className="sm:grid sm:grid-cols-[200px_1fr] sm:gap-6 sm:p-6 ">
           <div className="space-y-2 border-r pr-6 ">
@@ -102,33 +102,33 @@ export default function AccountSettings({name,email} : any) {
               onClick={() => setSelectedOption("profile")}
               className="w-full justify-start"
             >
-              Profile
+              Perfil
             </Button>
             <Button
               variant={selectedOption === "password" ? "secondary" : "ghost"}
               onClick={() => setSelectedOption("password")}
               className="w-full justify-start"
             >
-              Password
+              Senha
             </Button>
             <Button
               variant={selectedOption === "delete" ? "secondary" : "ghost"}
               onClick={() => setSelectedOption("delete")}
               className="w-full justify-start"
             >
-              Delete
+              Deletar
             </Button>
           </div>
           <div className="space-y-4 mt-4">
             {selectedOption === "profile" && (
                   <div id="profile" className="space-y-6">
                   <div className="space-y-2">
-                    <h3 className="text-lg font-semibold">Profile</h3>
-                    <p className="text-muted-foreground">Update your name and other profile information.</p>
+                    <h3 className="text-lg font-semibold">Perfil</h3>
+                    <p className="text-muted-foreground">Troque seu nome ou outra informação da conta</p>
                   </div>
                   <div className="grid gap-4">
                     <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                      <Label htmlFor="name">Name</Label>
+                      <Label htmlFor="name">Nome</Label>
                       <Input 
                         id="name" 
                         defaultValue={name} 
@@ -143,23 +143,23 @@ export default function AccountSettings({name,email} : any) {
                         onChange={(e) => setUserData({...userData, email:e.target.value})}
                       />
                     </div>
-                    <Button className="w-full" onClick={handleProfileUpdate}>Save</Button>
+                    <Button className="w-full" onClick={handleProfileUpdate}>Salvar</Button>
                     </div>
                   </div>
                 )}
                 {selectedOption === "password" && (
                   <div id="password" className="space-y-6">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold">Password</h3>
-                      <p className="text-muted-foreground">Change your account password.</p>
+                      <h3 className="text-lg font-semibold">Senha</h3>
+                      <p className="text-muted-foreground">Troque a senha da sua conta</p>
                     </div>
                     <div className="grid gap-4">
                       <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                        <Label htmlFor="current-password">Current Password</Label>
+                        <Label htmlFor="current-password">Senha Atual</Label>
                         <Input 
                           id="currentpassword" 
                           type={seePassword ? 'text' : 'password'} 
-                          placeholder="Enter your current password" 
+                          placeholder="Coloque sua senha atual" 
                           onChange={(e) => setpasswordData({...passwordData, currentpassword:e.target.value})}
                           />
                         <Button className="absolute bottom-1 right-1 h-7 w-7" size="icon" variant="ghost" type="button" onClick={()=>SetseePassword(!seePassword)}>
@@ -167,43 +167,43 @@ export default function AccountSettings({name,email} : any) {
                         </Button>
                       </div>
                       <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                        <Label htmlFor="new-password">New Password</Label>
+                        <Label htmlFor="new-password">Nova Senha</Label>
                         <Input 
                           id="newpassword" 
                           type={seePassword ? 'text' : 'password'} 
-                          placeholder="Enter your new password" 
+                          placeholder="Coloque sua nova senha" 
                           onChange={(e) => setpasswordData({...passwordData, newpassword:e.target.value})}
                           />
                       </div>
                       <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-                        <Label htmlFor="confirm-password">Confirm Password</Label>
+                        <Label htmlFor="confirm-password">Confirme a nova senha</Label>
                         <Input 
                           id="confirmpassword" 
                           type={seePassword ? 'text' : 'password'} 
-                          placeholder="Confirm your new password" 
+                          placeholder="Confirme sua nova senha" 
                           onChange={(e) => setpasswordData({...passwordData, confirmpassword:e.target.value})}
                           />
                       </div>
-                      <Button className="w-full" onClick={handlePasswordUpdate}>Update Password</Button>
+                      <Button className="w-full" onClick={handlePasswordUpdate}>Trocar Senha</Button>
                     </div>
                   </div>
                 )}
                 {selectedOption === "delete" && (
                   <div id="delete" className="space-y-6">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold text-red-500">Delete Account</h3>
-                      <p className="text-muted-foreground">Permanently delete your account and all your data.</p>
+                      <h3 className="text-lg font-semibold text-red-500">Deletar Conta</h3>
+                      <p className="text-muted-foreground">Sua conta será permanentemente deletada e você perderá todos seus dados</p>
                     </div>
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col items-start gap-4">
                         <Input 
                           id="deleteconfirmation" 
-                          placeholder={`Type "${name}" to confirm`}
+                          placeholder={`Digite "${name}" para confirmar`}
                           onChange={(e) => setDeleteWord(e.target.value)}
                           />
                       </div>
                       <Button variant="destructive" className="w-full" onClick={handleDeleteAccount}>
-                        Delete Account
+                        Deletar Conta
                       </Button>
                     </div>
                   </div>

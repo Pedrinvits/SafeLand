@@ -48,7 +48,7 @@ export default function Component() {
           <div className="mt-auto space-y-2 border-t pt-4">
             <Button variant="outline" className="w-full">
                 <LogOutIcon className="h-5 w-5 mr-2" />
-                Logout
+                Sair
             </Button>
                 <div className="w-full flex ">
                 <AccountSettings email={user?.email} name={user?.name}/>
@@ -91,7 +91,7 @@ export default function Component() {
               <div className="mt-auto space-y-2 border-t pt-4">
                 <Button variant="outline" className="w-full">
                     <LogOutIcon className="h-5 w-5 mr-2" />
-                    Logout
+                    Sair
                 </Button>
                   <AccountSettings email={user?.email} name={user?.name} />
                 </div>
@@ -99,8 +99,10 @@ export default function Component() {
           </Sheet>
         </header>
         <main className="p-4 md:p-6">
-          <h1 className="text-2xl font-bold">Olá {session?.user?.name}! </h1>
-          <p className="mt-2 text-muted-foreground">Simule seus valores</p>
+          <div className="mb-4">
+            <h1 className="text-2xl font-bold">Olá {session?.user?.name}! </h1>
+            <p className="mt-2 text-muted-foreground">Simule seus valores</p>
+          </div>
           <CreditEligibilityChecker/>
         </main>
       </div>

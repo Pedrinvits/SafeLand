@@ -51,97 +51,97 @@ const CreditEligibilityChecker = () => {
 
     // Determine eligibility
     if (score >= 70) {
-      setEligibility('Eligible')
+      setEligibility('Elegível')
     } else if (score >= 50) {
-      setEligibility('Potentially Eligible')
+      setEligibility('Potencialmente Elegível')
     } else {
-      setEligibility('Not Eligible')
+      setEligibility('Não Elegível')
     }
   }
 
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Credit Eligibility Checker</CardTitle>
-        <CardDescription>Enter your financial details to check your credit eligibility</CardDescription>
+        <CardTitle>Verificador de elegibilidade de crédito</CardTitle>
+        <CardDescription>Insira seus dados financeiros para verificar sua elegibilidade de crédito</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={(e) => { e.preventDefault(); checkEligibility(); }} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="salary">Annual Salary ($)</Label>
+            <Label htmlFor="salary">Salário Anual (R$)</Label>
             <Input
               id="salary"
               type="number"
               value={salary}
               onChange={(e) => setSalary(e.target.value)}
-              placeholder="Enter your annual salary"
+              placeholder="Coloque seu salário anual"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="education">Educational Level</Label>
+            <Label htmlFor="education">Nível Educacional</Label>
             <Select onValueChange={setEducation} required>
               <SelectTrigger id="education">
-                <SelectValue placeholder="Select your education level" />
+                <SelectValue placeholder="Selecione seu nível educacional" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="highschool">High School</SelectItem>
-                <SelectItem value="undergraduate">Undergraduate</SelectItem>
-                <SelectItem value="graduate">Graduate</SelectItem>
-                <SelectItem value="postgraduate">Postgraduate</SelectItem>
+                <SelectItem value="highschool">Ensino médio</SelectItem>
+                <SelectItem value="undergraduate">Em Graduação</SelectItem>
+                <SelectItem value="graduate">Graduação Finalizada</SelectItem>
+                <SelectItem value="postgraduate">Pós Graduação</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="cards">Number of Credit Cards</Label>
+            <Label htmlFor="cards">Número de cartões de crédito</Label>
             <Input
               id="cards"
               type="number"
               value={cards}
               onChange={(e) => setCards(e.target.value)}
-              placeholder="Enter number of credit cards"
+              placeholder="Coloque o número de cartões de crédito"
               min="0"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="debts">Total Debts ($)</Label>
+            <Label htmlFor="debts">Dívidas Totais (R$)</Label>
             <Input
               id="debts"
               type="number"
               value={debts}
               onChange={(e) => setDebts(e.target.value)}
-              placeholder="Enter your total debts"
+              placeholder="Coloque suas dívidas totais"
               min="0"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="savings">Total Savings ($)</Label>
+            <Label htmlFor="savings">Dinheiro Guardado ($)</Label>
             <Input
               id="savings"
               type="number"
               value={savings}
               onChange={(e) => setSavings(e.target.value)}
-              placeholder="Enter your total savings"
+              placeholder="Coloque o total de dinheiro guardado"
               min="0"
               required
             />
           </div>
-          <Button type="submit" className="w-full">Check Eligibility</Button>
+          <Button type="submit" className="w-full">Verifique a elegibilidade</Button>
         </form>
         {eligibility && (
           <div className="mt-6 text-center">
-            <h3 className="text-lg font-semibold">Credit Eligibility Result</h3>
+            <h3 className="text-lg font-semibold">Resultado de elegibilidade de crédito</h3>
             <p className={`text-2xl font-bold ${
-              eligibility === 'Eligible' ? 'text-green-600' : 
-              eligibility === 'Potentially Eligible' ? 'text-yellow-600' : 
+              eligibility === 'Elegível' ? 'text-green-600' : 
+              eligibility === 'Potencialmente Elegível' ? 'text-yellow-600' : 
               'text-red-600'
             }`}>
               {eligibility}
             </p>
             <p className="mt-2 text-sm text-gray-500">
-              This is an estimate based on the provided information. Actual eligibility may vary.
+              Esta é uma estimativa baseada nas informações fornecidas, a elegibilidade real pode variar.
             </p>
           </div>
         )}
