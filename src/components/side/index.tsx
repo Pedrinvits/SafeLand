@@ -6,11 +6,11 @@ import { LogOutIcon, SettingsIcon, UserRound } from "lucide-react"
 import { ModeToggle } from "../mode-toggle"
 import AccountSettings from "../accountSettings"
 import { auth } from "../../../auth"
-import { getUserByEmail } from "../../../data/user"
+import { getUserByEmail, getUserById } from "../../../data/user"
 import CreditEligibilityChecker from "../CreditEligibilityChecker"
 
 const session = await auth();
-const user = await  getUserByEmail(session?.user?.email)
+const user = await  getUserById(parseInt(session?.id))
 
 export default function Component() {
   return (
@@ -51,7 +51,7 @@ export default function Component() {
                 Logout
             </Button>
                 <div className="w-full flex ">
-                <AccountSettings email={user?.email} name={user?.name} password={user?.password}/>
+                <AccountSettings email={user?.email} name={user?.name}/>
                 </div>
             </div>
         </div>
@@ -79,14 +79,6 @@ export default function Component() {
                   <HomeIcon className="h-4 w-4" />
                   Home
                 </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  prefetch={false}
-                >
-                  <FileIcon className="h-4 w-4" />
-                  About
-                </Link> 
                 {/* <Link
                   href="#"
                   className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
@@ -101,14 +93,14 @@ export default function Component() {
                     <LogOutIcon className="h-5 w-5 mr-2" />
                     Logout
                 </Button>
-                <AccountSettings email={user?.email} name={user?.name} password={user?.password}/>
+                  <AccountSettings email={user?.email} name={user?.name} />
                 </div>
             </SheetContent>
           </Sheet>
         </header>
         <main className="p-4 md:p-6">
-          {/* <h1 className="text-2xl font-bold">Welcome to SafeLend </h1>
-          <p className="mt-2 text-muted-foreground">Explore our news</p> */}
+          <h1 className="text-2xl font-bold">Olá {session?.user?.name}! </h1>
+          <p className="mt-2 text-muted-foreground">Simule seus valores</p>
           <CreditEligibilityChecker/>
         </main>
       </div>
