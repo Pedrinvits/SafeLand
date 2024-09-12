@@ -100,7 +100,7 @@ export default function Component() {
         </header>
         <main className="p-4 md:p-6">
           <div className="mb-4">
-            <h1 className="text-2xl font-bold">Olá {session?.user?.name}! </h1>
+            <h1 className="text-2xl font-bold">Olá, {session?.user?.name}! </h1>
             <p className="mt-2 text-muted-foreground">Simule seus valores</p>
           </div>
           <CreditEligibilityChecker/>

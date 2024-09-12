@@ -203,6 +203,7 @@ export default function AccountSettings({name,email} : any) {
                     <div className="space-y-2">
                       <h3 className="text-lg font-semibold text-red-500">Deletar Conta</h3>
                       <p className="text-muted-foreground">Sua conta será permanentemente deletada e você perderá todos seus dados</p>
+                      <p className="text-muted-foreground">Digite "{name}" para confirmar a exclusão da conta</p>
                     </div>
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col items-start gap-4">
