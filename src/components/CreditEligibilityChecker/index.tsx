@@ -6,9 +6,34 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
+
+// Estilos para o PDF
+const styles = StyleSheet.create({
+  page: { padding: 30 },
+  section: { marginBottom: 10 },
+  title: { fontSize: 20, marginBottom: 10 },
+  text: { fontSize: 12, marginBottom: 5 },
+})
+
+// Componente PDF que será gerado
+const PdfDocument = ({ salary, education, cards, debts, savings, eligibility }: any) => (
+  <Document>
+    <Page style={styles.page}>
+      <View style={styles.section}>
+        <Text style={styles.title}>Resultado da Simulação de Elegibilidade de Crédito</Text>
+        <Text style={styles.text}>Salário Anual: R$ {salary}</Text>
+        <Text style={styles.text}>Nível Educacional: {education}</Text>
+        <Text style={styles.text}>Número de Cartões de Crédito: {cards}</Text>
+        <Text style={styles.text}>Dívidas Totais: R$ {debts}</Text>
+        <Text style={styles.text}>Dinheiro Guardado: R$ {savings}</Text>
+        <Text style={styles.text}>Resultado da Simulação: {eligibility}</Text>
+      </View>
+    </Page>
+  </Document>
+)
 
 const CreditEligibilityChecker = () => {
-    
   const [salary, setSalary] = useState('')
   const [education, setEducation] = useState('')
   const [cards, setCards] = useState('')
@@ -23,33 +48,27 @@ const CreditEligibilityChecker = () => {
     const totalDebts = parseFloat(debts) || 0
     const totalSavings = parseFloat(savings) || 0
 
-    // Salary scoring
     if (annualSalary > 100000) score += 30
     else if (annualSalary > 50000) score += 20
     else if (annualSalary > 30000) score += 10
 
-    // Education scoring
     if (education === 'postgraduate') score += 20
     else if (education === 'graduate') score += 15
     else if (education === 'undergraduate') score += 10
 
-    // Credit cards scoring
     if (numCards <= 2) score += 10
     else if (numCards <= 4) score += 5
     else score -= 5
 
-    // Debt-to-Income ratio scoring
     const debtToIncomeRatio = totalDebts / annualSalary
     if (debtToIncomeRatio < 0.1) score += 20
     else if (debtToIncomeRatio < 0.3) score += 10
     else if (debtToIncomeRatio > 0.5) score -= 10
 
-    // Savings-to-Income ratio scoring
     const savingsToIncomeRatio = totalSavings / annualSalary
     if (savingsToIncomeRatio > 0.2) score += 20
     else if (savingsToIncomeRatio > 0.1) score += 10
 
-    // Determine eligibility
     if (score >= 70) {
       setEligibility('Elegível')
     } else if (score >= 50) {
@@ -149,10 +168,25 @@ const CreditEligibilityChecker = () => {
             <p className="mt-2 text-sm text-gray-500">
               Esta é uma estimativa baseada nas informações fornecidas, a elegibilidade real pode variar.
             </p>
+            <div className="mt-4">
+              <PDFDownloadLink
+                document={<PdfDocument 
+                  salary={salary} 
+                  education={education} 
+                  cards={cards} 
+                  debts={debts} 
+                  savings={savings} 
+                  eligibility={eligibility} />}
+                fileName="simulacao_credito.pdf"
+              >
+                {({ loading }) => (loading ? 'Gerando PDF...' : 'Baixar Simulação em PDF')}
+              </PDFDownloadLink>
+            </div>
           </div>
         )}
       </CardContent>
     </Card>
   )
 }
+
 export default CreditEligibilityChecker;
